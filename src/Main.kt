@@ -19,7 +19,7 @@ fun main() {
     println()
 
     // Create a list to store monkey names
-    val monkeys = null  // FIXME!
+    val monkeys = mutableListOf<String>()
 
     // Add in some test monkeys
     monkeys.add("Dave")
@@ -28,7 +28,7 @@ fun main() {
 
     // Show the monkeys
     showMonkeys(monkeys)
-    println(monkeyCounter(monkeys))
+    println("${monkeyCounter(monkeys)} ")
 
     // Check the list
     check(monkeys.count() == 3)
@@ -105,12 +105,14 @@ fun main() {
  * Monkey 3: Sally
  * etc.
  */
-fun showMonkeys(monkeyList: List<String>) {
+fun showMonkeys(monkeys: List<String>) {
     println("Monkey List")
     println("-------------------")
 
     // Loop through the given list and show each monkey
-    check(false)   // FIXME: Remove this line and add your code
+    for (monkey in monkeys) {
+        println("Monkey ${monkeys.indexOf(monkey) + 1}: ${monkey.toString()} ")
+    }
 }
 
 
@@ -118,13 +120,14 @@ fun showMonkeys(monkeyList: List<String>) {
  * Get a monkey name from the user (no blanks allowed)
  * and then add it to the given monkey list
  */
-fun getNewMonkey(monkeyList: MutableList<String>) {
+fun getNewMonkey(monkeys: MutableList<String>) {
     // Ask the user for a monkey name (no blanks)
+    val newMonkey = getString("New monkey: ")
 
     // Add the name to the list
-
+    monkeys.add(newMonkey)
     // Show some feedback
-    println("Added new monkey: NAME HERE")
+    println("Added new monkey: $newMonkey")
 }
 
 
@@ -135,18 +138,33 @@ fun getNewMonkey(monkeyList: MutableList<String>) {
  * If there are no monkeys, it should return:
  *   There are no monkeys!
  */
-fun monkeyCounter(monkeyList: List<String>): String {
+fun monkeyCounter(monkeys: List<String>): String {
     // return the number of monkeys in the list
-    return "MONKEY COUNT MESSAGE"   // FIXME!
+    var monkeycount = 0
+    for (monkey in monkeys) {
+        monkeycount += 1
+    }
+    if (monkeycount != 0) {
+
+        return "There are ${monkeycount.toString()} monkeys!"
+    } else return "There are no monkeys!"
 }
 
 
 /**
  * Returns the name of the monkey
  */
-fun longestMonkeyName(monkeyList: List<String>): String {
+fun longestMonkeyName(monkeys: List<String>): String {
     // Loop through the list and find the longest name
-    return "MONKEY NAME HERE"   // FIXME!
+    var longestnameint = 0
+    var longestname = ""
+    for (monkey in monkeys) {
+        if (monkey.length > longestnameint) {
+            longestnameint = monkey.length
+            longestname = monkey
+        }
+    }
+    return longestname.toString()
 }
 
 
@@ -154,11 +172,14 @@ fun longestMonkeyName(monkeyList: List<String>): String {
  * Removes the first monkey from the given list
  * if the list is not empty
  */
-fun deleteFirstMonkey(monkeyList: MutableList<String>) {
+fun deleteFirstMonkey(monkeys: MutableList<String>) {
     // Remove the first one from the list
-
-    // Show some feedback
-    println("Removing monkey: NAME HERE")
+    if (monkeys.isNotEmpty()) {
+        val monkey1 = monkeys[0]
+        monkeys.removeAt(0)
+        // Show some feedback
+        println("Removing monkey: $monkey1")
+    }
 }
 
 
@@ -166,10 +187,37 @@ fun deleteFirstMonkey(monkeyList: MutableList<String>) {
  * Removes the last monkey from the given list
  * if the list is not empty
  */
-fun deleteLastMonkey(monkeyList: MutableList<String>) {
+fun deleteLastMonkey(monkeys: MutableList<String>) {
     // Remove the last one from the list
+    // Remove the first one from the list
+    if (monkeys.isNotEmpty()) {
+        val monkey5 = monkeys[4]
+        monkeys.removeAt(4)
+        // Show some feedback
+        println("Removing monkey: $monkey5")
+    }
+}
 
-    // Show some feedback
-    println("Removing monkey: NAME HERE")
+
+/**
+ * Function to get a string from the user
+ *
+ * parameters:
+ * prompt:
+ * -text to show user
+ * returns:
+ * -string that the user has entered
+ */
+
+fun getString(prompt: String): String {
+    var userinput: String
+
+    while (true) {
+        print(prompt)
+        userinput = readln()
+        if (userinput.isNotBlank()) break
+
+    }
+    return userinput
 }
 
